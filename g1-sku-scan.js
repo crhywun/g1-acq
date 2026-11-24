@@ -87,6 +87,24 @@
     stored = false;
   }
 
+  if (stored && typeof $notification !== "undefined" &&
+      typeof $notification.post === "function") {
+    const previousIds = new Set(oldRows.filter(Boolean).map(row => row.id));
+    const newIds = ids.filter(id =>
+      !previousIds.has(id) && /(?:^|[._-])(?:20tb|30tb)(?=$|[._-])/i.test(id)
+    );
+
+    if (newIds.length) {
+      try {
+        const summary = newIds.slice(0, 3).join("\n");
+        const remaining = newIds.length - Math.min(newIds.length, 3);
+        $notification.post("Google One SKU", "发现新的 20TB / 30TB 商品编号",
+          remaining ? summary + "\n另有 " + remaining + " 个，请看本地报告" : summary);
+      } catch (error) {
+        console.log("[g1-sku-scan] notification unavailable");
+      }
+    }
+  }
   console.log("[g1-sku-scan] candidates=" + Object.keys(found).length +
     " occurrences=" + hitCount + " saved=" + (stored ? "yes" : "no"));
   Object.keys(found).sort().slice(0, LIMIT).forEach(function (id) {
