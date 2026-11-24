@@ -1,0 +1,30 @@
+name: G1 SKU Scan Alerts
+desc: 扫描 Google One SKU，首次发现新的 20TB 或 30TB 商品编号时提醒
+author: crhywun
+
+rules:
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+
+http:
+  mitm:
+    - one.google.com
+  script:
+    - match: '^https://one\.google\.com/'
+      name: g1-sku-scan
+      type: response
+      require-body: true
+      max-size: 10485760
+      timeout: 30
+    - match: '^https://one\.google\.com/g1-sku-report/?(?:\?.*)?$'
+      name: g1-sku-report
+      type: request
+      require-body: false
+      timeout: 30
+
+script-providers:
+  g1-sku-scan:
+    url: https://raw.githubusercontent.com/duanxianwp/g1-acq/cd8ed1b176f2a018c9b1b3f13af57f4779828a05/g1-sku-scan.js
+    interval: 86400
+  g1-sku-report:
+    url: https://cdn.jsdelivr.net/gh/crhywun/g1-acq@v7.5.0/g1-sku-report.js
+    interval: 86400
