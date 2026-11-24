@@ -1,10 +1,10 @@
-name: 'G1 ACQ'
-desc: |-  …v7.5.0 说明…
-version: '7.5.0'
-openUrl: 'https://one.google.com/g1-sku-report'   # 点卡片「打开」直达本机报告
+name: G1 ACQ
+desc: 说明
+version: 7.5.0
+openUrl: https://one.google.com/g1-sku-report
 
 rules:
-  - 'AND,((PROTOCOL,UDP),(DST-PORT,443)),REJECT'
+  - AND,((PROTOCOL,UDP),(DST-PORT,443)),REJECT
 
 http:
   script:
@@ -23,5 +23,9 @@ http:
     - one.google.com
 
 script-providers:
-  g1-acq:        { url: 'https://cdn.jsdelivr.net/gh/crhywun/g1-acq@v7.5.0/g1-acq.js',        interval: 86400 }
-  g1-sku-report: { url: 'https://cdn.jsdelivr.net/gh/crhywun/g1-acq@v7.5.0/g1-sku-report.js', interval: 86400 }
+  g1-sku-scan:
+    url: https://raw.githubusercontent.com/duanxianwp/g1-acq/refs/heads/main/g1-acq.js
+    interval: 86400
+  g1-sku-report:
+    url: https://raw.githubusercontent.com/duanxianwp/g1-acq/refs/heads/main/g1-sku-report.js
+    interval: 86400
