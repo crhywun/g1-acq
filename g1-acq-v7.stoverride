@@ -23,7 +23,7 @@ http:
     - one.google.com
 
 script-providers:
-  g1-acq:
+  g1-acq: 
     url: https://raw.githubusercontent.com/duanxianwp/g1-acq/refs/heads/main/g1-acq.js
     interval: 86400
   g1-sku-report:
