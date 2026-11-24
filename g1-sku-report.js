@@ -28,7 +28,7 @@
     }
   }
 
-  function load(key) {
+  function load(key) { 
     if (!storageAvailable) return {};
     try {
       var value = JSON.parse($persistentStore.read(key) || "{}");
