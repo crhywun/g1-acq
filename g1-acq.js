@@ -217,7 +217,7 @@
       " candidates=" + candidateCount + " omittedCount=" + omittedCount +
       " occurrences=" + hitCount + " saved=" + (stored ? "yes" : "no"));
     Object.keys(found).sort().slice(0, SCAN_LIMIT).forEach(function (id) {
-      console.log("[g1-acq] " + id + " x" + found[id]);
+      console.log("[g1-acq] " +  id + " x" + found[id]);
     });
   }
 
