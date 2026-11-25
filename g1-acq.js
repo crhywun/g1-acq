@@ -57,6 +57,9 @@
         var to;
         var fallback = false;
         if (isAnnual) {
+          // TARGET is an unverified constant; only rewrite when the response
+          // itself confirms the offer id exists, same as the mapped tiers below.
+          if (observed.indexOf(TARGET) === -1) return match;
           to = TARGET;
         } else if (Object.prototype.hasOwnProperty.call(SKU_MAP, id)) {
           to = SKU_MAP[id];
